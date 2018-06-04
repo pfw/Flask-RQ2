@@ -87,7 +87,7 @@ class RQ(object):
     #     ``flask_rq2.functions.JobFunctions``.
     functions_class = 'flask_rq2.functions.JobFunctions'
 
-    def __init__(self, app=None, default_timeout=None, async=None):
+    def __init__(self, app=None, default_timeout=None,  async_=None):
         """
         Initialize the RQ interface.
 
@@ -96,13 +96,13 @@ class RQ(object):
         :param default_timeout: The default timeout in seconds to use for jobs,
                                 defaults to RQ's default of 180 seconds per job
         :type default_timeout: int
-        :param async: Whether or not to run jobs asynchronously or in-process,
+        :param async_: Whether or not to run jobs asynchronously or in-process,
                       defaults to ``True``
-        :type async: bool
+        :type async_: bool
         """
         if default_timeout is not None:
             self.default_timeout = default_timeout
-        self._async = async
+        self._async = async_
         self._jobs = []
         self._exception_handlers = []
         self._queue_instances = {}
@@ -349,7 +349,7 @@ class RQ(object):
             queue = queue_cls(
                 name=name,
                 default_timeout=self.default_timeout,
-                async=self._async,
+                async_=self._async,
                 connection=self.connection,
                 job_class=self.job_class
             )
